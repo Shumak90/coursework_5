@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from unit import BaseUnit
+    from project.unit import BaseUnit
 
 
 class Skill(ABC):
@@ -52,7 +52,7 @@ class FuryPunch(Skill):
         # уменьшение здоровья цели.
         # результат применения возвращаем строкой
         self.user.stamina -= self.stamina
-        self.target.get_damage(self.damage)
+        self.target.get_damage(int(self.damage))
         return f"{self.user.name} использует {self.name} и наносит {self.damage} урона"
 
 
@@ -63,5 +63,5 @@ class HardShot(Skill):
 
     def skill_effect(self):
         self.user.stamina -= self.stamina
-        self.target.get_damage(self.damage)
+        self.target.get_damage(int(self.damage))
         return f"{self.user.name} использует {self.name} и наносит {self.damage} урона"

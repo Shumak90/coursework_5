@@ -4,6 +4,8 @@ from abc import ABC, abstractmethod
 from random import randint
 from typing import Optional
 
+from typing_extensions import Type
+
 from project.classes import UnitClass
 from project.equipment import Weapon, Armor
 
@@ -16,13 +18,13 @@ class BaseUnit(ABC):
         """
         При инициализации класса Unit используем свойства класса UnitClass
         """
-        self.name = name
-        self.unit_class = unit_class
+        self.name: str = name
+        self.unit_class: UnitClass = unit_class
         self.hp = unit_class.max_health
         self.stamina = unit_class.max_stamina
-        self.weapon = None
-        self.armor = None
-        self._is_skill_used = False
+        # self.weapon = Weapon
+        # self.armor = Armor
+        self._is_skill_used: bool = False
 
     @property
     def health_points(self):
@@ -34,12 +36,12 @@ class BaseUnit(ABC):
         #возвращаем аттрибут stamina в красивом виде
         return round(self.stamina, 1)
 
-    def equip_weapon(self, weapon: Weapon):
+    def equip_weapon(self, weapon: Weapon) -> str:
         #присваиваем нашему герою новое оружие
         self.weapon = weapon
         return f"{self.name} экипирован оружием {self.weapon.name}"
 
-    def equip_armor(self, armor: Armor):
+    def equip_armor(self, armor: Armor) -> str:
         #одеваем новую броню
         self.armor = armor
         return f"{self.name} экипирован броней {self.weapon.name}"
@@ -59,9 +61,9 @@ class BaseUnit(ABC):
             target.stamina -= target.armor.stamina_per_turn * target.unit_class.stamina
             damage -= target.armor.defence * target.unit_class.armor
 
-        return target.get_damage(damage)
+        return target.get_damage(int(damage))
 
-    def get_damage(self, damage: int) -> Optional[int]:
+    def get_damage(self, damage: int) -> int:
         # получение урона целью
         # присваиваем новое значение для аттрибута self.hp
         if damage > 0:

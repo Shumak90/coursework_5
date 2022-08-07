@@ -6,7 +6,7 @@ from project.equipment import Equipment
 from project.unit import EnemyUnit, PlayerUnit
 
 app = Flask(__name__)
-heroes = {}
+heroes: dict = {}
 
 arena = Arena()  # TODO инициализируем класс арены
 equipment = Equipment()
@@ -118,3 +118,4 @@ def choose_enemy():
 
 if __name__ == "__main__":
     app.run()
+
