@@ -2,9 +2,6 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 
 from random import randint
-from typing import Optional
-
-from typing_extensions import Type
 
 from project.classes import UnitClass
 from project.equipment import Weapon, Armor
@@ -14,7 +11,7 @@ class BaseUnit(ABC):
     """
     Базовый класс юнита
     """
-    def __init__(self, name: str, unit_class: UnitClass):
+    def __init__(self, name: str, unit_class: UnitClass, weapon: Weapon, armor: Armor):
         """
         При инициализации класса Unit используем свойства класса UnitClass
         """
@@ -22,8 +19,8 @@ class BaseUnit(ABC):
         self.unit_class: UnitClass = unit_class
         self.hp = unit_class.max_health
         self.stamina = unit_class.max_stamina
-        # self.weapon = Weapon
-        # self.armor = Armor
+        self.weapon = weapon
+        self.armor = armor
         self._is_skill_used: bool = False
 
     @property
