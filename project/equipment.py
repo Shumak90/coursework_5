@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Optional
+from typing import List, Optional, Any
 from random import uniform
 import marshmallow_dataclass
 import json
