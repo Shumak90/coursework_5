@@ -1,6 +1,6 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional, Any, Type
 
 if TYPE_CHECKING:
     from project.unit import BaseUnit
@@ -29,7 +29,7 @@ class Skill(ABC):
     def skill_effect(self) -> str:
         pass
 
-    def _is_stamina_enough(self):
+    def _is_stamina_enough(self) -> float:
         return self.user.stamina > self.stamina
 
     def use(self, user: BaseUnit, target: BaseUnit) -> str:
@@ -45,14 +45,14 @@ class FuryPunch(Skill):
     stamina: float = 6
     damage: float = 12
 
-    def skill_effect(self):
+    def skill_effect(self) -> str:
         # логика использования скилла -> return str
         # в классе нам доступны экземпляры user и target - можно использовать любые их методы
         # именно здесь происходит уменшение стамины у игрока применяющего умение и
         # уменьшение здоровья цели.
         # результат применения возвращаем строкой
         self.user.stamina -= self.stamina
-        self.target.get_damage(int(self.damage))
+        self.target.get_damage(self.damage)
         return f"{self.user.name} использует {self.name} и наносит {self.damage} урона"
 
 
@@ -61,7 +61,7 @@ class HardShot(Skill):
     stamina: float = 5
     damage: float = 15
 
-    def skill_effect(self):
+    def skill_effect(self) -> str:
         self.user.stamina -= self.stamina
-        self.target.get_damage(int(self.damage))
+        self.target.get_damage(self.damage)
         return f"{self.user.name} использует {self.name} и наносит {self.damage} урона"

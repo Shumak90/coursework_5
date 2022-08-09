@@ -15,7 +15,7 @@ class BaseUnit(ABC):
         """
         При инициализации класса Unit используем свойства класса UnitClass
         """
-        self.name: str = name
+        self.name = name
         self.unit_class: UnitClass = unit_class
         self.hp = unit_class.max_health
         self.stamina = unit_class.max_stamina
@@ -24,12 +24,12 @@ class BaseUnit(ABC):
         self._is_skill_used: bool = False
 
     @property
-    def health_points(self):
+    def health_points(self) -> float:
         #возвращаем аттрибут hp в красивом виде
         return round(self.hp, 1)
 
     @property
-    def stamina_points(self):
+    def stamina_points(self) -> float:
         #возвращаем аттрибут stamina в красивом виде
         return round(self.stamina, 1)
 
@@ -43,7 +43,7 @@ class BaseUnit(ABC):
         self.armor = armor
         return f"{self.name} экипирован броней {self.weapon.name}"
 
-    def _count_damage(self, target: BaseUnit) -> int:
+    def _count_damage(self, target: BaseUnit) -> float:
         #  Эта функция должна содержать:
         #  логику расчета урона игрока
         #  логику расчета брони цели
@@ -58,9 +58,9 @@ class BaseUnit(ABC):
             target.stamina -= target.armor.stamina_per_turn * target.unit_class.stamina
             damage -= target.armor.defence * target.unit_class.armor
 
-        return target.get_damage(int(damage))
+        return target.get_damage(damage)
 
-    def get_damage(self, damage: int) -> int:
+    def get_damage(self, damage: float) -> float:
         # получение урона целью
         # присваиваем новое значение для аттрибута self.hp
         if damage > 0:

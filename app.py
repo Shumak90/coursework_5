@@ -86,8 +86,8 @@ def choose_hero():
         weapon_name = request.form["weapon"]
         unit_class = request.form["unit_class"]
         player = PlayerUnit(name=name, unit_class=unit_classes.get(unit_class),
-                            weapon=equipment.get_weapon(request.form.get('weapon')),
-                            armor=equipment.get_armor(request.form.get('armor')))
+                            weapon=equipment.get_weapon(request.form.get(weapon_name)),
+                            armor=equipment.get_armor(request.form.get(armor_name)))
         player.equip_weapon(equipment.get_weapon(weapon_name))
         player.equip_armor(equipment.get_armor(armor_name))
         heroes["player"] = player
@@ -112,8 +112,8 @@ def choose_enemy():
         weapon_name = request.form["weapon"]
         unit_class = request.form["unit_class"]
         enemy = EnemyUnit(name=name, unit_class=unit_classes.get(unit_class),
-                          weapon=equipment.get_weapon(request.form.get('weapon')),
-                          armor=equipment.get_armor(request.form.get('armor')))
+                          weapon=equipment.get_weapon(request.form.get(weapon_name)),
+                          armor=equipment.get_armor(request.form.get(armor_name)))
         enemy.equip_weapon(equipment.get_weapon(weapon_name))
         enemy.equip_armor(equipment.get_armor(armor_name))
         heroes["enemy"] = enemy
