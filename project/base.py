@@ -13,8 +13,8 @@ class BaseSingleton(type):
 
 class Arena(metaclass=BaseSingleton):
     STAMINA_PER_ROUND = 1
-    player = BaseUnit
-    enemy = BaseUnit
+    player: BaseUnit
+    enemy: BaseUnit
     game_is_running = False
     result = None
 
@@ -69,14 +69,14 @@ class Arena(metaclass=BaseSingleton):
             return result
         if self.game_is_running:
             self._stamina_regeneration()
-            return self.enemy.hit(self.player)
+        return self.enemy.hit(self.player)
 
     def _end_game(self) -> str:
         # КНОПКА ЗАВЕРШЕНИЕ ИГРЫ - > return result: str
         # очищаем синглтон - self._instances = {}
         # останавливаем игру (game_is_running)
         # возвращаем результат
-        self._instances = {}
+        self._instances: dict = {}
         self.game_is_running = True
         return self.battle_result
 

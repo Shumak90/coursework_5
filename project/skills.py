@@ -7,8 +7,8 @@ if TYPE_CHECKING:
 
 
 class Skill(ABC):
-    user = None
-    target = None
+    user: BaseUnit
+    target: BaseUnit
 
     @property
     @abstractmethod
